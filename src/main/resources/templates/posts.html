@@ -1,12 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      layout:fragment="content">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>게시글 목록</title>
+
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/posts.css">
+  </th:block>
 </head>
 <body>
+
+
+222222222
+
+
+<section layout:fragment="content">
+  <h2>게시글 목록</h2>
+</section>
+
+<th:block layout:fragment="script">
+  <script src="/js/posts.js"></script>
+</th:block>
 
 </body>
 </html>

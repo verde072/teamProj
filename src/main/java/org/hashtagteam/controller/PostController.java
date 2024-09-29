@@ -3,15 +3,15 @@ package org.hashtagteam.controller;
 import org.hashtagteam.dto.PostDTO;
 import org.hashtagteam.service.PostService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/posts")
 public class PostController {
     private final PostService postService;
@@ -23,9 +23,8 @@ public class PostController {
 
     @GetMapping
     public String posts() {
-        System.out.println("getPostList");
 
-        return "posts";
+        return "/posts";
     }
 
     // 게시글 목록 조회 API
