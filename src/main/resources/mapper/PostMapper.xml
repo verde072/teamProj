@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hashtagteam.mapper.PostMapper">
+
+    <!-- 게시글 목록 조회 -->
+    <select id="getPostList" parameterType="map" resultType="Post">
+        SELECT title
+                ,user_id
+                ,created_date
+                ,viw_count
+        FROM posts
+        WHERE title LIKE '%' || #{title} || '%'
+        ORDER BY created_date DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+</mapper>
