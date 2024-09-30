@@ -24,7 +24,7 @@ public class PostController {
     @GetMapping
     public String posts() {
 
-        return "/posts";
+        return "views/posts";
     }
 
     // 게시글 목록 조회 API
