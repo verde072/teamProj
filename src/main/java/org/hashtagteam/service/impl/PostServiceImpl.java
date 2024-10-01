@@ -20,7 +20,12 @@ public class PostServiceImpl implements PostService {
 
     // 게시글 목록 조회 메서드 구현
     @Override
-    public List<PostDTO> getPostList(Map<String, String> params) {
+    public List<PostDTO> getPostList(Map<String, Object> params) {
+        int page = (int) params.get("page");
+        int size = (int) params.get("size");
+        int offset = (page - 1) * size;
+        params.put("offset", offset);
+
         return postMapper.getPostList(params);
     }
 

@@ -1,3 +1,4 @@
+/* 공통 스크립트 */
 AOS.init({
 	duration: 800,
 	easing: 'slide',
@@ -249,4 +250,16 @@ $(function(){
 	if($('input[name="daterange"]').length) {
 		$('input[name="daterange"]').daterangepicker();
 	}
+
+	// header 메뉴 active 세팅
+	var setActive = function() {
+		var currentPath = window.location.pathname;
+
+		document.querySelectorAll('.js-clone-nav.site-menu a').forEach(function (link) {
+			if (link.getAttribute('href') === currentPath) {
+				link.parentElement.classList.add('active');
+			}
+		});
+	}
+	setActive();
 })

@@ -12,7 +12,7 @@ import java.util.Map;
 @Mapper
 public interface PostMapper {
 
-    List<PostDTO> getPostList(Map<String, String> params);
+    List<PostDTO> getPostList(Map<String, Object> params);
 
 
     @Insert("INSERT INTO posts (menu_id, user_id, title, content, created_date, view_count) " +

@@ -8,7 +8,7 @@ import java.util.Map;
 public interface PostService {
 
     // 게시글 목록 조회
-    List<PostDTO> getPostList(Map<String, String> params);
+    List<PostDTO> getPostList(Map<String, Object> params);
 
     // 게시글 등록
     PostDTO insertPost(PostDTO postDTO);
