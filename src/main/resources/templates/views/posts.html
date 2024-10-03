@@ -23,7 +23,41 @@
         <div class="col-lg-6 mx-auto text-center">
           <div class="intro-wrap">
             <h1 class="mb-0">Review Board</h1>
-            <p class="text-white">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
+
+            <div class="row">
+              <div class="col-12">
+                <form class="form">
+                  <div class="row mb-2">
+                    <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+                      <select name="" id="" class="form-control custom-select">
+                        <option value="">Destination</option>
+                        <option value="">Peru</option>
+                        <option value="">Japan</option>
+                        <option value="">Thailand</option>
+                        <option value="">Brazil</option>
+                        <option value="">United States</option>
+                        <option value="">Israel</option>
+                        <option value="">China</option>
+                        <option value="">Russia</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">
+                      <input type="text" class="form-control" name="daterange">
+                    </div>
+                    <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
+                      <input type="text" class="form-control" placeholder="# of People">
+                    </div>
+
+                  </div>
+                  <div class="row align-items-center">
+                    <div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
+                      <input type="submit" class="btn btn-primary btn-block" value="검색">
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -34,50 +68,23 @@
   <div class="untree_co-section">
     <div class="container">
       <div class="row">
-        <div class="col-6 col-md-6 col-lg-3">
+        <p class="text-white"> 총  <a th:text="${PostCount}"></a>  건 </p>
+
+        <th:block th:each="post:${postList}" >
+        <div class="col-6 col-md-6 col-lg-3" >
           <div class="media-1">
-            <a href="#" class="d-block mb-3"><img src="images/hero-slider-1.jpg" alt="Image" class="img-fluid"></a>
+            <a href="#" class="d-block mb-3"><img th:src="${post.imgUrl}" alt="Image" class="img-fluid"></a>
             <div class="d-flex">
               <div>
-                <h3><a href="#">Excellence in Travel</a></h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <h3><a href="#" th:text="${post.title}"></a></h3>
+                <p>작성자 <a th:text="${post.userId}"></a> </p>
+                <p>작성일 <a th:text="${#temporals.format(post.createdDate,'yyyy.MM.dd')}"></a></p>
+                <p>조회수 <a th:text="${post.viewCount}"></a></p>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-6 col-md-6 col-lg-3">
-          <div class="media-1">
-            <a href="#" class="d-block mb-3"><img src="images/hero-slider-2.jpg" alt="Image" class="img-fluid"></a>
-            <div class="d-flex">
-              <div>
-                <h3><a href="#">Discovering Best</a></h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-3">
-          <div class="media-1">
-            <a href="#" class="d-block mb-3"><img src="images/hero-slider-3.jpg" alt="Image" class="img-fluid"></a>
-            <div class="d-flex">
-              <div>
-                <h3><a href="#">A New Moments of Life</a></h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-6 col-lg-3">
-          <div class="media-1">
-            <a href="#" class="d-block mb-3"><img src="images/hero-slider-4.jpg" alt="Image" class="img-fluid"></a>
-            <div class="d-flex">
-              <div>
-                <h3><a href="#">Joy To Your Journey</a></h3>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </th:block>
       </div>
     </div>
   </div>

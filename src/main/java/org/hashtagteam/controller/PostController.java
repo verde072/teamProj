@@ -21,7 +21,7 @@ public class PostController {
         this.postService = postService;
     }
 
-
+    // 게시글 목록 조회
     @GetMapping
     public String posts(@RequestParam(defaultValue = "1") int page,
                         @RequestParam(defaultValue = "10") int size,
@@ -31,8 +31,10 @@ public class PostController {
         params.put("size",size);
 
         List<PostDTO> postList = postService.getPostList(params);
+        int PostCount = postService.getPostCount(params);
 
         model.addAttribute("postList",postList);
+        model.addAttribute("PostCount",PostCount);
 
 
         return "views/posts";

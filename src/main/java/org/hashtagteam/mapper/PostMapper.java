@@ -14,9 +14,11 @@ public interface PostMapper {
 
     List<PostDTO> getPostList(Map<String, Object> params);
 
+    int getPostCount(Map<String, Object> params);
 
-    @Insert("INSERT INTO posts (menu_id, user_id, title, content, created_date, view_count) " +
-            "VALUES (#{menuId}, #{userId}, #{title}, #{content}, #{createdDate}, #{viewCount})")
+
+    @Insert("INSERT INTO posts (menu_id,post_id, user_id, title, content, created_date, view_count) " +
+            "VALUES (#{menuId},#{postId}, #{userId}, #{title}, #{content}, #{createdDate}, #{viewCount})")
     @Options(useGeneratedKeys = true, keyProperty = "postId")
     Post insert(Post post);
 }
