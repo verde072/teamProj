@@ -14,7 +14,8 @@ public interface PostService {
     int getPostCount(Map<String, Object> params);
 
     // 게시글 등록
-    PostDTO insertPost(PostDTO postDTO);
+    void insert(PostDTO postDTO);
 
-
+    // 게시글 상세 조회
+    PostDTO getPostDetail(String postId);
 }

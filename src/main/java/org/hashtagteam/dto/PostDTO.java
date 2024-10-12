@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,5 +19,5 @@ public class PostDTO {
     private String title;                   // 제목
     private String content;                 // 내용
     private String imgUrl;                  // 대표이미지 파일경로
-
+    private List<String> hashtags;          // 해시태그 리스트
 }

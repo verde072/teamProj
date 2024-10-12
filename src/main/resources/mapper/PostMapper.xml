@@ -5,23 +5,46 @@
 <mapper namespace="org.hashtagteam.mapper.PostMapper">
     <!-- 공통 조건절 -->
     <sql id="searchCondition">
-        <if test='title != null and title != ""'>
-            WHERE title LIKE '%' || #{title} || '%'
-        </if>
+        LEFT OUTER JOIN posts_tag pt ON p.post_id = pt.post_id
+        LEFT OUTER JOIN tag h ON pt.tag_id = h.tag_id
+        <where>
+            <if test='key != null and key != ""'>
+                <if test='"title".equals(key)'>
+                   title LIKE CONCAT('%', #{keyword},'%')
+                </if>
+                <if test='"content".equals(key)'>
+                    content LIKE CONCAT('%', #{keyword},'%')
+                </if>
+                <if test='"all".equals(key)'>
+                    title LIKE CONCAT('%', #{keyword},'%')
+                    OR content LIKE CONCAT('%', #{keyword},'%')
+                </if>
+            </if>
+
+            <if test='startDt != null and startDt !=""'>
+                created_date BETWEEN #{startDate} AND #{endDate}
+            </if>
+            <if test="hashtags != null and hashtags.size() > 0">
+                <foreach item="tag" collection="hashtags" open="" separator=" OR " close="">
+                   h.tag_nm LIKE CONCAT('%', #{tag}, '%')
+                </foreach>
+            </if>
+        </where>
     </sql>
 
     <!-- 게시글 목록 조회 -->
     <select id="getPostList" parameterType="map" resultType="PostDTO">
-        SELECT P.title
-                ,P.user_id
-                ,P.created_date
-                ,P.view_count
-                ,(SELECT F.save_path
-                    FROM files F
-                    WHERE F.post_id = P.post_id
+        SELECT p.title
+                ,p.user_id
+                ,p.created_date
+                ,p.view_count
+                ,p.post_id
+                ,(SELECT f.save_path
+                    FROM files f
+                    WHERE f.post_id = p.post_id
                     ORDER BY F.file_id DESC
                     LIMIT 1) AS img_url
-        FROM posts P
+        FROM posts p
         <include refid="searchCondition"/>
         ORDER BY created_date DESC
         LIMIT #{size} OFFSET #{offset}
@@ -30,8 +53,39 @@
     <!--게시글 총개수 조회-->
     <select id="getPostCount" parameterType="map" resultType="int">
         SELECT COUNT(*)
-        FROM posts
+        FROM posts p
         <include refid="searchCondition"/>
     </select>
 
+    <!-- 게시글 상세 조회 -->
+    <select id="getPostDetail" parameterType="String" resultMap="postResultMap">
+        SELECT p.title
+               ,p.post_id
+               ,p.content
+               ,p.user_id
+               ,p.created_date
+               ,p.view_count
+               ,(SELECT f.save_path
+                    FROM files f
+                    WHERE f.post_id = p.post_id
+                    ORDER BY F.file_id DESC
+                    LIMIT 1) AS img_url
+                ,h.tag_nm
+        FROM posts p LEFT OUTER JOIN posts_tag pt ON p.post_id = pt.post_id
+                     LEFT OUTER JOIN tag h ON pt.tag_id = h.tag_id
+        WHERE p.post_id = #{postId}
+    </select>
+
+    <resultMap id="postResultMap" type="PostDTO">
+        <id property="postId" column="post_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="imgUrl" column="img_url"/>
+        <collection property="hashtags" ofType="String">
+            <result column="tag_nm"/>
+        </collection>
+    </resultMap>
 </mapper>
