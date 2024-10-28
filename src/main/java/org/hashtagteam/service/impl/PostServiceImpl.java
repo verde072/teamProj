@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -46,23 +47,39 @@ public class PostServiceImpl implements PostService {
     public void insert(PostDTO postDTO) {
         Post post = modelMapper.map(postDTO, Post.class);
         postMapper.insertPost(post);
-
-        // 해시태그가 있는 경우 해시태그 리스트를 삽입
-        if (postDTO.getHashtags() != null && !postDTO.getHashtags().isEmpty()) {
-            for (String tagNm : postDTO.getHashtags()) {
-
-                PostsTag postsTag = new PostsTag();
-                postsTag.setPostId(postDTO.getPostId());
-                postsTag.setTagId(getOrCreateTagId(tagNm));
-                postMapper.insertPostTag(postsTag);
-            }
-        }
+        insertPostTags(postDTO);
     }
 
     // 게시글 상세조회 메서드 구현
     @Override
     public PostDTO getPostDetail(String postId) {
         return postMapper.getPostDetail(postId);
+    }
+
+    @Override
+    public void delete(PostDTO postDTO) {
+        postMapper.deletePost(postDTO.getPostId());
+
+        // 삭제할 태그 리스트 얻기 - 태그가 사용된 게시물이 없으면 태그도 삭제
+        List<String> tagsToDelete = postDTO.getHashtags().stream()
+                                    .filter(tagNm -> postMapper.countPostsByTag(tagNm) == 0)
+                                    .collect(Collectors.toList());
+
+        if (!tagsToDelete.isEmpty()) {  // 일괄 삭제
+            postMapper.deleteTags(tagsToDelete);
+        }
+
+    }
+
+    @Override
+    public void update(PostDTO postDTO) {
+        Post post = modelMapper.map(postDTO, Post.class);
+        postMapper.updatePost(post);
+
+        // 태그 리스트 전부 삭제 후 다시 추가
+        postMapper.deleteTagsByPostId(postDTO.getPostId());
+        insertPostTags(postDTO);
+
     }
 
     // tagId 반환, 없으면 새로 생성
@@ -80,6 +97,20 @@ public class PostServiceImpl implements PostService {
         postMapper.insertTag(tag);
 
         return tag.getTagId();
+    }
+
+    // posts_tag 테이블에 태그리스트 삽입
+    public void insertPostTags(PostDTO postDTO){
+        // 해시태그가 있는 경우 해시태그 리스트를 삽입
+        if (postDTO.getHashtags() != null && !postDTO.getHashtags().isEmpty()) {
+            for (String tagNm : postDTO.getHashtags()) {
+
+                PostsTag postsTag = new PostsTag();
+                postsTag.setPostId(postDTO.getPostId());
+                postsTag.setTagId(getOrCreateTagId(tagNm));
+                postMapper.insertPostTag(postsTag);
+            }
+        }
     }
 
 }

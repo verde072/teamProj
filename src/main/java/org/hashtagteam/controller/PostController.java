@@ -21,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/post")
@@ -70,9 +71,20 @@ public class PostController {
         return "views/post-list";
     }
 
-    // 게시글 등록 페이지
+    // 게시글 등록/수정 페이지
     @GetMapping("/write")
-    public String writePost() {
+    public String writePost(@RequestParam(required = false) String postId, Model model) {
+        PostDTO postDTO;
+
+        if (postId == null) { // 신규 작성 모드: 빈 PostDTO 생성
+            postDTO = new PostDTO();
+        } else { // 수정 모드: 기존 게시글 데이터를 가져옴
+            postDTO = postService.getPostDetail(postId);
+            String hashtags = String.join(",", postDTO.getHashtags());
+            model.addAttribute("hashtags", hashtags);
+        }
+
+        model.addAttribute("post", postDTO);
 
         return "views/write-post";
     }
@@ -100,17 +112,31 @@ public class PostController {
         PostDTO postDTO = postService.getPostDetail(postId);
         model.addAttribute("post", postDTO);
         String hashtags = String.join(",", postDTO.getHashtags());
-        model.addAttribute("hashtags",hashtags);
+        model.addAttribute("hashtags", hashtags);
 
         return "views/read-post";
     }
 
     @PostMapping("/submit")
     public String submitPost(@ModelAttribute PostDTO postDTO,
+                             @RequestParam(required = false) String postId,
                              @RequestParam(required = false) String hashtags) {
-        postDTO.setPostId(IdGenerator.generateId("P"));
-        postDTO.setHashtags(getHashtagList(hashtags));
-        postService.insert(postDTO);
+
+        if(postId == null || postId.isEmpty()){
+            postDTO.setPostId(IdGenerator.generateId("P"));
+            postDTO.setHashtags(getHashtagList(hashtags));
+            postService.insert(postDTO);
+        }else{
+            postService.update(postDTO);
+        }
+
+
+        return "redirect:/post/list";
+    }
+
+    @DeleteMapping("/delete")
+    public String deletePost(@ModelAttribute PostDTO postDTO) {
+        postService.delete(postDTO);
 
         return "redirect:/post/list";
     }
@@ -126,7 +152,7 @@ public class PostController {
 
             hashtagList = list.stream()
                     .map(map -> map.get("value"))
-                    .toList();
+                    .collect(Collectors.toList());
 
         } catch (Exception e) {
             logger.error("hashtags 파싱 중 에러", e);

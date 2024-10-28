@@ -44,8 +44,10 @@
                     WHERE f.post_id = p.post_id
                     ORDER BY F.file_id DESC
                     LIMIT 1) AS img_url
+                ,GROUP_CONCAT(h.tag_nm SEPARATOR ', ') AS hashtags
         FROM posts p
         <include refid="searchCondition"/>
+        GROUP BY p.post_id
         ORDER BY created_date DESC
         LIMIT #{size} OFFSET #{offset}
     </select>
@@ -75,6 +77,51 @@
                      LEFT OUTER JOIN tag h ON pt.tag_id = h.tag_id
         WHERE p.post_id = #{postId}
     </select>
+
+    <!-- 게시글 상세 조회 -->
+    <select id="countTag" parameterType="String" resultType="Integer">
+        SELECT p.title
+               ,p.post_id
+               ,p.content
+               ,p.user_id
+               ,p.created_date
+               ,p.view_count
+               ,(SELECT f.save_path
+                    FROM files f
+                    WHERE f.post_id = p.post_id
+                    ORDER BY F.file_id DESC
+                    LIMIT 1) AS img_url
+                ,h.tag_nm
+        FROM posts p LEFT OUTER JOIN posts_tag pt ON p.post_id = pt.post_id
+                     LEFT OUTER JOIN tag h ON pt.tag_id = h.tag_id
+        WHERE p.post_id = #{postId}
+    </select>
+
+    <!--해시태그 일괄 삭제-->
+    <delete id="deleteTags" parameterType="list">
+        DELETE FROM tags
+        WHERE tag_nm IN
+        <foreach item="tag" collection="list" open="(" separator="," close=")">
+            #{tagNm}
+        </foreach>
+    </delete>
+
+    <!--해시태그 사용한 게시글 수 조회-->
+    <select id="countPostsByTag" parameterType="list">
+        SELECT COUNT(*)
+        FROM posts p LEFT OUTER JOIN posts_tag pt ON p.post_id = pt.post_id
+            LEFT OUTER JOIN tag h ON pt.tag_id = h.tag_id
+        WHERE h.tag_nm = #{tagNm}
+    </select>
+
+    <!--게시글 수정-->
+    <update id="updatePost">
+        UPDATE posts
+        SET title = #{title},
+            content = #{content},
+            updated_date = NOW()
+        WHERE post_id = #{postId}
+    </update>
 
     <resultMap id="postResultMap" type="PostDTO">
         <id property="postId" column="post_id"/>

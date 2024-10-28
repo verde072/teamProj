@@ -21,9 +21,9 @@
     <div class="hero hero-inner">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6 mx-auto text-center text-white">
+                <div class="col-lg-12 mx-auto text-center text-white">
                     <div class="intro-wrap">
-                        <h1 class="mb-0" th:text="${post.title}"></h1>
+                        <h2 class="mb-3" th:text="${post.title}"></h2>
                         <p class="d-inline"><span class="icon-user"></span> 작성자 <a th:text="${post.userId}"></a></p>
                         <p class="d-inline"><span class="icon-date_range"></span>작성일 <a
                                 th:text="${#temporals.format(post.createdDate,'yyyy.MM.dd')}"></a></p>
@@ -38,11 +38,12 @@
 
     <!-- 글상세 -->
     <div class="untree_co-section">
-        <div class="container">
+        <form class="container" id="postForm">
             <div class="row">
                 <div class="col-lg-12 mb-5">
                     <div th:utext="${post.content}"></div>
                 </div>
+
             </div>
             <div class="feature-1 d-md-flex">
                 <div class="align-self-center">
@@ -53,13 +54,13 @@
 
             <div class="row text-center">
                 <div class="col-md-12 d-flex justify-content-between">
-                    <button type="button" class="btn btn-danger">삭제</button>
-                    <button type="submit" class="btn btn-primary">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="submitForm('delete')">삭제</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm('write')">수정</button>
                 </div>
             </div>
 
-
-        </div>
+            <input type="hidden" name="postId" th:value="${post.postId}">
+        </form>
     </div>
 
 
@@ -67,7 +68,7 @@
 
 <th:block layout:fragment="js">
     <script src="/js/tagify.js"></script>
-    <script type="module" src="/js/custom/read-post.js"></script>
+    <script src="/js/custom/read-post.js"></script>
 </th:block>
 
 </body>

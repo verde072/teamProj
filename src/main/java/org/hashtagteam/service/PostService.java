@@ -18,4 +18,10 @@ public interface PostService {
 
     // 게시글 상세 조회
     PostDTO getPostDetail(String postId);
+
+    // 게시글 삭제
+    void delete(PostDTO postDTO);
+
+    // 게시글 수정
+    void update(PostDTO postDTO);
 }
