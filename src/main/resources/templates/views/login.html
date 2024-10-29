@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" href="/css/custom/login.css">
+    </th:block>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <!-- 로그인 폼 -->
+    <div class="hero hero-inner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mx-auto text-center">
+                    <div class="intro-wrap">
+                        <h1 class="mb-4">로그인</h1>
+                        <form class="form" th:action="@{/login}" method="post">
+                            <div class="mb-3">
+                                <input type="text" name="username" class="form-control" placeholder="이메일을 입력하세요" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요" required>
+                            </div>
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-primary btn-block">로그인</button>
+                            </div>
+                            <div class="text-center">
+                                <p>계정이 없으신가요? <a th:href="@{/signup}" class="font-weight-bold">회원가입</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block layout:fragment="js">
+    <script src="/js/custom/login.js"></script>
+</th:block>
+
+</body>
+</html>
