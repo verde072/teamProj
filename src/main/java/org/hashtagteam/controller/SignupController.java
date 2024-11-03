@@ -1,12 +1,13 @@
 package org.hashtagteam.controller;
 
-import org.hashtagteam.model.User;
+import org.hashtagteam.dto.UserDTO;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.hashtagteam.service.UserService;
+import org.springframework.web.bind.annotation.*;
+
 
 @Controller
+@RequestMapping("/signup")
 public class SignupController {
     private final UserService userService;
 
@@ -14,17 +15,17 @@ public class SignupController {
         this.userService = userService;
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/signupPage")
     public String showSignupPage() {
         return "views/signup";
     }
 
-    @PostMapping("/signup")
-    public String handleSignup(User user) {
-        if (user != null) {
-            userService.signUpUser(user);
+    @PostMapping("/register")
+    public String handleSignup(UserDTO userDTO) {
+        if (userDTO != null) {
+            userService.signUpUser(userDTO);
         }
-        return "redirect:/login";
+        return "redirect:/login/loginPage";
     }
 
 }

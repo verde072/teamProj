@@ -4,10 +4,10 @@
 
 <mapper namespace="org.hashtagteam.mapper.UserMapper">
 
-    <!-- 사용자 등록 -->
-    <insert id="insertUser" parameterType="org.hashtagteam.model.User">
-        INSERT INTO user (user_id, password, name, gender, birth, phone, email, primary_addr, detail_addr, created_date)
-        VALUES (#{userId}, #{password}, #{name}, #{gender}, #{birth}, #{phone}, #{email}, #{primaryAddr}, #{detailAddr}, SYSDATE())
-    </insert>
+<!--     사용자 등록 -->
+<!--    <insert id="insertUser" parameterType="org.hashtagteam.model.User">-->
+<!--        INSERT INTO user (user_id, password, name, gender, birth, phone, email, primary_addr, detail_addr, created_date)-->
+<!--        VALUES (#{userId}, #{password}, #{name}, #{gender}, #{birth}, #{phone}, #{email}, #{primaryAddr}, #{detailAddr}, SYSDATE())-->
+<!--    </insert>-->
 
 </mapper>

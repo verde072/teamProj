@@ -22,7 +22,7 @@
                 <div class="col-lg-6 mx-auto text-center">
                     <div class="intro-wrap">
                         <h1 class="mb-4">로그인</h1>
-                        <form class="form" th:action="@{/login}" method="post">
+                        <form class="form" th:action="@{/login/tryLogin}" method="post">
                             <div class="mb-3">
                                 <input type="text" name="username" class="form-control" placeholder="이메일을 입력하세요" required>
                             </div>
@@ -33,7 +33,7 @@
                                 <button type="submit" class="btn btn-primary btn-block">로그인</button>
                             </div>
                             <div class="text-center">
-                                <p>계정이 없으신가요? <a th:href="@{/signup}" class="font-weight-bold">회원가입</a></p>
+                                <p>계정이 없으신가요? <a th:href="@{/signup/signupPage}" class="font-weight-bold">회원가입</a></p>
                             </div>
                         </form>
                     </div>

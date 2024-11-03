@@ -1,11 +1,7 @@
 package org.hashtagteam.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
-import org.hashtagteam.dto.UserDTO;
+import org.apache.ibatis.annotations.*;
+
 import org.hashtagteam.model.User;
 
 
@@ -13,8 +9,11 @@ import org.hashtagteam.model.User;
 public interface UserMapper {
 
     // 사용자 등록
-    @Insert("INSERT INTO user (user_id, password, name, gender, birth, phone, email, primary_addr, detail_addr, created_date) " +
-            "VALUES (#{userId}, #{password}, #{name}, #{gender}, #{birth}, #{phone}, #{email}, #{primaryAddr}, #{detailAddr}, SYSDATE())")
+    @Insert("INSERT INTO user (password, name, gender, birth, phone, email, primary_addr, detail_addr, created_date) " +
+            "VALUES (#{password}, #{name}, #{gender}, #{birth}, #{phone}, #{email}, #{primaryAddr}, #{detailAddr}, SYSDATE())")
     void insertUser(User user);
 
+
+    @Select("SELECT COUNT(*) FROM user WHERE email = #{username} AND password = #{password}")
+    int findUser(@Param("username") String username, @Param("password") String password);
 }

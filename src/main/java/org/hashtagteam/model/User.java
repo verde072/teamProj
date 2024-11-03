@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Setter
 // 사용자 정보
 public class User {
-    private String userId;              // 사용자 ID
     private String password;            // 비밀번호
     private String name;                // 이름
     private String gender;              // 성별

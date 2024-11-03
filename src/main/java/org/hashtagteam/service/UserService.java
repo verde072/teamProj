@@ -1,7 +1,8 @@
 package org.hashtagteam.service;
 
-import org.hashtagteam.model.User;
+import org.hashtagteam.dto.UserDTO;
 
 public interface UserService {
-    void signUpUser(User user); // 사용자 저장 메서드
+    void signUpUser(UserDTO userDTO);
+    boolean authenticateUser(String username, String password);
 }
