@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일정표</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/custom/read-post.css}">
+        <link rel="stylesheet" th:href="@{/css/tagify.css}">
+        <link rel="stylesheet" th:href="@{/css/custom/schedule.css}">
+        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.css' rel='stylesheet'/>
+
+    </th:block>
+</head>
+<body>
+
+
+<section layout:fragment="content">
+    <!-- 상단 배너 -->
+    <div class="hero hero-inner">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-12 mx-auto text-center text-white">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 글상세 -->
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 ml-0">
+                    <div id="timetable"></div>
+                </div>
+                <div class="col-lg-3 mb-5 mb-lg-0">
+                    <form class="contact-form mt-5" data-aos="fade-up" data-aos-delay="200" id="scheduleForm"
+                          onsubmit="return false;">
+
+
+                        <div class="feature-1 d-md-flex">
+                            <div class="align-self-center">
+
+                                <div class="form-group">
+                                    <label class="text-black" for="day">여행기간</label>
+                                    <div class="d-flex text-center align-items-center">
+                                        <input type="text" class="form-control" id="day">일
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-black" for="destination">목적지</label>
+                                    <input type="text" class="form-control" id="destination">
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-black" for="cost">예상경비</label>
+                                    <div class="d-flex text-center align-items-center">
+                                        <input type="text" class="form-control" id="cost" style="text-align: right">원
+                                    </div>
+                                </div>
+                                <!--                                <button type="button" class="btn btn-primary" id="addMst">일정 등록</button>-->
+
+
+                                <!--                                    <label for="hashtagInput"><span class="icon-tag text-primary"></span> 해시태그</label>-->
+                                <!--                                    <input type="text" name="hashtags" id="hashtagInput" class="form-control"-->
+                                <!--                                           th:value="${hashtags}">-->
+
+                            </div>
+                        </div>
+
+
+                        <div class="feature-1 d-md-flex timetable">
+                            <div class="align-self-center">
+                                <div class="form-group">
+                                    <label class="text-black" for="title">일정제목</label>
+                                    <input type="text" class="form-control" id="title">
+                                </div>
+                                <div class="form-group">
+                                    <label class="text-black" for="date">일자</label>
+                                    <input type="date" class="form-control" id="date">
+                                </div>
+                                <div class="row">
+                                    <div class="col-6" style="padding-right: 2px">
+                                        <div class="form-group">
+                                            <label class="text-black" for="startTime">시작시간</label>
+                                            <select class="form-control" id="startTime"></select>
+                                        </div>
+                                    </div>
+                                    <div class="col-6" style="padding-left: 2px">
+                                        <div class="form-group">
+                                            <label class="text-black" for="endTime">종료시간</label>
+                                            <select class="form-control" id="endTime"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex" style="gap: 15px;">
+                                    <label class="d-flex align-items-center">
+                                        <input type="radio" name="color" value="#D6E9F0">
+                                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #D6E9F0; border-radius: 50%;"></span>
+                                    </label>
+                                    <label class="d-flex align-items-center">
+                                        <input type="radio" name="color" value="#FADADD">
+                                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #FADADD; border-radius: 50%;"></span>
+                                    </label>
+                                    <label class="d-flex align-items-center">
+                                        <input type="radio" name="color" value="#D4E7D4">
+                                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #D4E7D4; border-radius: 50%;"></span>
+                                    </label>
+                                </div>
+                                <div class="form-group d-md-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary" id="addSchedule">일정 추가</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<th:block layout:fragment="js">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.5/index.global.min.js'></script>
+    <script src="/js/tagify.js"></script>
+    <script src="/js/custom/schedule.js"></script>
+</th:block>
+
+</body>
+</html>

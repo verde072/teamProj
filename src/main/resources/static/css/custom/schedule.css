@@ -1,0 +1,30 @@
+/* Tagify 입력창 높이 조정 */
+.tagify.form-control {
+    min-height: 200px;
+}
+
+
+#timetable{
+    height: 100%;
+}
+
+#day{
+    width: 50%;
+    margin:0px 4px;
+}
+
+#cost{
+    margin:0px 4px;
+}
+
+.col-6{
+}
+
+.feature-1{
+    padding: 20px;
+}
+
+input[type='radio']{
+    margin-right: 3px;
+}
+
