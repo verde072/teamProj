@@ -10,11 +10,14 @@
 
 #day{
     width: 50%;
-    margin:0px 4px;
+    margin:0 4px;
 }
 
 #cost{
-    margin:0px 4px;
+    margin:0 4px;
+}
+#prompt{
+    height: 250px ;
 }
 
 .col-6{
