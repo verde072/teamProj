@@ -60,4 +60,25 @@ public interface PostMapper {
     // 게시글 관련 해시태그 전부 삭제
     @Delete("DELETE FROM posts_tag WHERE post_id = #{postId}")
     void deleteTagsByPostId(String postId);
+
+    // [추가] 태그를 기반으로 게시글 목록 조회
+    @Select("""
+            SELECT p.post_id, p.title, p.content, p.created_date, p.view_count
+            FROM posts p
+            JOIN posts_tag pt ON p.post_id = pt.post_id
+            JOIN tag t ON pt.tag_id = t.tag_id
+            WHERE t.tag_nm = #{tagNm}
+            """)
+    List<PostDTO> getPostsByTag(String tagNm);
+
+    // [추가] 태그를 기반으로 게시글 개수 조회
+    @Select("""
+            SELECT COUNT(*)
+            FROM posts p
+            JOIN posts_tag pt ON p.post_id = pt.post_id
+            JOIN tag t ON pt.tag_id = t.tag_id
+            WHERE t.tag_nm = #{tagNm}
+            """)
+    int countPostsByTagName(String tagNm);
+
 }

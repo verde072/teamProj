@@ -76,20 +76,35 @@
                 <!--                <p class="text-black"> 총 <a th:text="${postCount}"></a> 건 </p>-->
                 <div th:if="${postCount > 0}" th:each="post:${postList}" class="col-6 col-md-6 col-lg-3">
                     <div class="media-1">
-                        <a th:href="@{/post/read(postId=${post.postId})}" class="d-block mb-3"><img th:src="${post.imgUrl}" alt="Image" class="img-fluid"></a>
+<!--                        <a th:href="@{/post/read(postId=${post.postId})}" class="d-block mb-3"><img th:src="${post.imgUrl}" alt="Image" class="img-fluid"></a>-->
+                        <a th:href="@{/search/read(postId=${post.postId})}" class="d-block mb-3"><img src="https://media.istockphoto.com/id/579410588/ko/%EC%82%AC%EC%A7%84/%EC%A0%9C%EC%A3%BC%EB%A5%BC-%EB%8F%84%EC%84%9C%EC%A7%80%EC%97%AD.jpg?s=612x612&w=0&k=20&c=jU4K8EmzuBGjw8B3eEN03znT6I533DGPAgohBjC6GzE=" alt="Image" class="img-fluid"></a>
                         <div class="d-flex">
                             <div>
                                 <h3><a href="#" th:text="${post.title}"></a></h3>
                                 <p>작성자 <a th:text="${post.userId}"></a></p>
                                 <p>작성일 <a th:text="${#temporals.format(post.createdDate,'yyyy.MM.dd')}"></a></p>
                                 <p>조회수 <a th:text="${post.viewCount}"></a></p>
+                                <div>
+                                    <a class="btn btn-primary btn-block" onclick="openChatPopup('1'); return false;">채팅하기</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div th:unless="${postCount > 0}" class="col-6 col-md-6 col-lg-9 text-center">
-                    <span class="material-symbols-outlined d-inline-block">sentiment_very_dissatisfied</span>
-                    <h4 class="d-inline-block">검색결과가 없습니다.</h4>
+                <div class="d-flex">
+                    <div style="width: 50px"></div>
+                    <div>
+                        <h3>제주도에서 자주 사용하는 현지 언어 </h3>
+                        <div style="height: 30px"></div>
+                        <p>잘 있수다 – "안녕히 계세요" 또는 "잘 가세요"라는 뜻.</p>
+                        <p>어디 가꼬 – "어디 가세요?"라는 뜻.</p>
+                        <p>무시멍 – "뭐" 또는 "무엇"이라는 뜻.</p>
+                        <p>따또 – "아이" 또는 "애"라는 뜻.</p>
+                        <p>셩판이 – "괜찮아요"라는 뜻.</p>
+                        <p>헐레 – "어떻게" 또는 "어떤 방식으로"라는 뜻.</p>
+                        <p>하믄 – "하면"이라는 뜻.</p>
+                        <p>기밥 – "기다리다"라는 뜻.</p>
+                    </div>
                 </div>
             </div>
         </div>

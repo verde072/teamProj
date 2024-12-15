@@ -23,4 +23,11 @@ public interface SearchService {
 
     // 게시글 수정
     void update(PostDTO postDTO);
+
+    // 태그를 기반으로 게시글 목록 조회
+    List<PostDTO> getPostsByTag(String tag);
+
+    // 태그를 기반으로 게시글 개수 조회
+    int getPostCountByTag(String tag);
+
 }

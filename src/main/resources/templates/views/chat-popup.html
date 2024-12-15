@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat</title>
+    <link rel="stylesheet" href="/css/chat.css">
+    <script>
+        // 메시지 전송
+        function sendMessage(event) {
+            event.preventDefault(); // 폼 제출을 막습니다 (페이지 새로고침 방지)
+
+            const messageInput = document.getElementById("message");
+            const message = messageInput.value.trim();
+
+            if (message !== "") {
+                // 채팅 내용 추가
+                const chatBox = document.getElementById("chat-box");
+
+                // 새로운 메시지 div 생성
+                const messageDiv = document.createElement("div");
+                messageDiv.classList.add("message", "received"); // 여기서는 기본적으로 받은 메시지로 설정
+
+                const messageContent = document.createElement("div");
+                messageContent.classList.add("message-content");
+                messageContent.textContent = message;
+
+                messageDiv.appendChild(messageContent);
+                chatBox.appendChild(messageDiv);
+
+                // 메시지 입력 필드 비우기
+                messageInput.value = "";
+
+                // 채팅창 스크롤을 가장 아래로 이동
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        // 채팅 팝업 닫기
+        function closeChat() {
+            const chatPopup = document.querySelector('.chat-popup');
+            chatPopup.style.display = 'none'; // 팝업을 숨깁니다.
+        }
+    </script>
+</head>
+<body>
+<div class="chat-popup">
+    <div class="chat-header">
+        <h2 th:text="(${userId} != null ? ${userId} : '홍길동' + ' 채팅방')"></h2>
+        <button class="close-btn" onclick="closeChat()">×</button>
+    </div>
+    <div id="chat-box" class="chat-box">
+        <!-- 이전 메시지 표시 -->
+    </div>
+    <form id="chat-form" class="chat-form" onsubmit="sendMessage(event)">
+        <input type="text" id="message" placeholder="메시지를 입력해주세요..." class="chat-input">
+        <button type="submit" class="send-btn">전송</button>
+    </form>
+</div>
+</body>
+</html>

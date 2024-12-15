@@ -33,6 +33,26 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+    // 태그 기반 게시글 목록 조회
+    @GetMapping("/tag")
+    public String getPostsByTag(@RequestParam String tag,
+                                @RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "8") int size,
+                                Model model) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("tag", tag);
+        params.put("page", page);
+        params.put("size", size);
+
+        List<PostDTO> postList = searchService.getPostsByTag(tag);
+        int postCount = searchService.getPostCountByTag(tag);
+
+        model.addAttribute("postList", postList);
+        model.addAttribute("postCount", postCount);
+        model.addAttribute("tag", tag);
+
+        return "views/search";
+    }
 
     // 게시글 목록 조회
     @GetMapping("/list")
@@ -43,6 +63,7 @@ public class SearchController {
                            @RequestParam(required = false) LocalDate startDt,
                            @RequestParam(required = false) LocalDate endDt,
                            @RequestParam(required = false) String hashtags,
+                           @RequestParam(required = false) String tag,
                            Model model) {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
@@ -52,7 +73,7 @@ public class SearchController {
         params.put("startDt", startDt);
         params.put("endDt", endDt);
         if (hashtags != null) params.put("hashtags", getHashtagList(hashtags));
-
+        if (tag != null) params.put("tag", tag);
 
         List<PostDTO> postList = searchService.getPostList(params);
         int postCount = searchService.getPostCount(params);
@@ -66,7 +87,7 @@ public class SearchController {
         model.addAttribute("startDt", startDt);
         model.addAttribute("endDt", endDt);
         model.addAttribute("hashtags", hashtags);
-
+        model.addAttribute("tag", tag);
 
         return "views/search";
     }

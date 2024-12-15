@@ -25,7 +25,7 @@
 
   						<div class="row">
   							<div class="col-12">
-  								<form class="form">
+  								<form  th:action="@{/search/tag}" method="get" class="form">
   									<div class="row mb-2">
 <!--  										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">-->
 <!--  											<select name="" id="" class="form-control custom-select">-->
@@ -44,14 +44,14 @@
   											<input type="text" class="form-control" name="daterange">
   										</div>
   										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
-  											<input type="text" name="hashtag" class="form-control" placeholder="# HashTag">
+  											<input type="text" name="tag" class="form-control" placeholder="# HashTag">
   										</div>
 
   									</div>
   									<div class="row align-items-center">
   										<div class="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
-											<a th:href="@{/search/list}" class="btn btn-primary btn-block">Search</a>
-<!--											<input type="submit" class="btn btn-primary btn-block" value="Search">-->
+<!--											<a th:href="@{/search/list}" class="btn btn-primary btn-block">Search</a>-->
+											<input type="submit" class="btn btn-primary btn-block" value="Search">
   										</div>
   										<div class="col-lg-8">
   											<label class="control control--checkbox mt-3">

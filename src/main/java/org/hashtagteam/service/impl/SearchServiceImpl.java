@@ -82,6 +82,18 @@ public class SearchServiceImpl  implements SearchService {
 
     }
 
+    // [추가] 태그 기반 게시글 목록 조회
+    @Override
+    public List<PostDTO> getPostsByTag(String tag) {
+        return postMapper.getPostsByTag(tag);
+    }
+
+    // [추가] 태그 기반 게시글 개수 조회
+    @Override
+    public int getPostCountByTag(String tag) {
+        return postMapper.countPostsByTagName(tag);
+    }
+
     // tagId 반환, 없으면 새로 생성
     public String getOrCreateTagId(String tagNm) {
         // 해시태그가 존재하는지 확인하고, 있으면 id 반환
