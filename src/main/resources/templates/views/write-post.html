@@ -23,7 +23,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 mx-auto text-center">
                     <div class="intro-wrap">
-<!--                        <h1 class="mb-0">글쓰기</h1>-->
+                        <h1 class="mb-0">여행후기 등록</h1>
                     </div>
                 </div>
             </div>
@@ -43,6 +43,22 @@
                             <input type="text" name="title" class="form-control" id="title"
                                    th:value="${post.title == null} ? '' : ${post.title}">
                         </div>
+                        <div class="form-group">
+                            <label class="text-black" for="title">프롬프트</label>
+                            <div class="d-flex">
+                                <input type="text" name="promptInput" class="form-control" id="promptInput"
+                                       style="margin-right: 1rem;"
+                                       placeholder="프롬프트를 입력하고 자동생성 버튼을 클릭하면 AI가 여행후기를 작성해줍니다!">
+                                <button type="button" class="btn btn-primary" id="generatePostButton"
+                                        style="width: 100px; padding: 12px 0;">AI 자동생성
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="loading" style="display: none;">
+                            <div class="spinner"></div>
+                            <p>AI로 콘텐츠를 생성 중입니다. 잠시만 기다려 주세요...</p>
+                        </div>
 
                         <div class="form-group">
                             <label class="text-black" for="editor">내용</label>
@@ -52,8 +68,15 @@
 
                         <div class="form-group">
                             <label class="text-black" for="hashtagInput">해시태그</label>
-                            <input type="text" id="hashtagInput" name="hashtags" class="form-control"
-                                   th:value="${hashtags == null} ?  '' : ${hashtags}">
+                            <div class="d-flex">
+
+                                <input type="text" id="hashtagInput" name="hashtags" class="form-control"
+                                       placeholder="해시태그는 엔터로 구분됩니다. 자동생성 버튼을 클릭하면 AI가 해시태그를 추천해줍니다! "
+                                       th:value="${hashtags == null} ?  '' : ${hashtags}">
+                                <button type="button" class="btn btn-primary" id="generateTags"
+                                        style="width: 100px; padding: 12px 0; margin-left: 1rem;">AI 자동생성
+                                </button>
+                            </div>
                         </div>
 
                         <div class="col-md-12 d-flex justify-content-between">

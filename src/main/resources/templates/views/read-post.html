@@ -53,7 +53,8 @@
             </div>
 
             <div class="row text-center">
-                <div class="col-md-12 d-flex justify-content-between">
+                <div class="col-md-12 d-flex justify-content-between"
+                     th:if="${loginId == post.userId}">
                     <button type="button" class="btn btn-danger" onclick="submitForm('delete')">삭제</button>
                     <button type="button" class="btn btn-primary" onclick="submitForm('write')">수정</button>
                 </div>

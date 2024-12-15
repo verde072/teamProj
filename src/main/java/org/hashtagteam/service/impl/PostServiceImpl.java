@@ -1,5 +1,7 @@
 package org.hashtagteam.service.impl;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hashtagteam.dto.PostDTO;
 import org.hashtagteam.mapper.PostMapper;
 import org.hashtagteam.model.Post;
@@ -58,8 +60,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(PostDTO postDTO) {
-        postMapper.deletePost(postDTO.getPostId());
-
         // 삭제할 태그 리스트 얻기 - 태그가 사용된 게시물이 없으면 태그도 삭제
         List<String> tagsToDelete = postDTO.getHashtags().stream()
                                     .filter(tagNm -> postMapper.countPostsByTag(tagNm) == 0)
@@ -111,6 +111,8 @@ public class PostServiceImpl implements PostService {
                 postMapper.insertPostTag(postsTag);
             }
         }
+
+        postMapper.deletePost(postDTO.getPostId());
     }
 
 }

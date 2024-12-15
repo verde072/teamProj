@@ -23,7 +23,7 @@ public interface PostMapper {
 
     //TODO userId 세팅필요
     @Insert("INSERT INTO posts (menu_id, post_id, user_id, title, content, created_date, view_count) " +
-            "VALUES ('posts', #{postId}, 'id', #{title}, #{content}, NOW(), 0)")
+            "VALUES ('posts', #{postId}, #{userId}, #{title}, #{content}, NOW(), 0)")
     //@Options(useGeneratedKeys = true, keyProperty = "postId")
     void insertPost(Post post);
 
@@ -52,7 +52,7 @@ public interface PostMapper {
     void deletePost(String postId);
 
     // 해시태그 일괄 삭제
-    void deleteTags(List<String> postId);
+    void deleteTags(List<String> tagNames);
 
     // 해시태그 사용한 게시글 수 조회
     int countPostsByTag (String tagNm);
