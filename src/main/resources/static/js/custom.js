@@ -263,3 +263,13 @@ $(function(){
 	}
 	setActive();
 })
+
+// 로딩 화면 표시
+function showLoading() {
+	document.getElementById('loading').style.display = 'flex';
+}
+
+// 로딩 화면 숨김
+function hideLoading() {
+	document.getElementById('loading').style.display = 'none';
+}

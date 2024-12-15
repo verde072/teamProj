@@ -1,13 +1,12 @@
 package org.hashtagteam.service.impl;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hashtagteam.dto.PostDTO;
 import org.hashtagteam.mapper.PostMapper;
 import org.hashtagteam.model.Post;
 import org.hashtagteam.model.PostsTag;
 import org.hashtagteam.model.Tag;
 import org.hashtagteam.service.PostService;
+import org.hashtagteam.service.SearchService;
 import org.hashtagteam.utils.IdGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class PostServiceImpl implements PostService {
-
+public class SearchServiceImpl  implements SearchService {
     private final PostMapper postMapper;
     private final ModelMapper modelMapper;
 
     // 생성자
-    public PostServiceImpl(PostMapper postMapper, ModelMapper modelMapper) {
+    public SearchServiceImpl(PostMapper postMapper, ModelMapper modelMapper) {
         this.postMapper = postMapper;
         this.modelMapper = modelMapper;
     }
@@ -60,10 +58,12 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void delete(PostDTO postDTO) {
+        postMapper.deletePost(postDTO.getPostId());
+
         // 삭제할 태그 리스트 얻기 - 태그가 사용된 게시물이 없으면 태그도 삭제
         List<String> tagsToDelete = postDTO.getHashtags().stream()
-                                    .filter(tagNm -> postMapper.countPostsByTag(tagNm) == 0)
-                                    .collect(Collectors.toList());
+                .filter(tagNm -> postMapper.countPostsByTag(tagNm) == 0)
+                .collect(Collectors.toList());
 
         if (!tagsToDelete.isEmpty()) {  // 일괄 삭제
             postMapper.deleteTags(tagsToDelete);
@@ -111,8 +111,5 @@ public class PostServiceImpl implements PostService {
                 postMapper.insertPostTag(postsTag);
             }
         }
-
-        postMapper.deletePost(postDTO.getPostId());
     }
-
 }

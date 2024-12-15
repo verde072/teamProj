@@ -41,36 +41,31 @@
                     <div id="timetable"></div>
                 </div>
                 <div class="col-lg-3 mb-5 mb-lg-0">
+
+                    <div id="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>일정을 생성 중입니다. 잠시만 기다려 주세요...</p>
+                    </div>
+
+
                     <form class="contact-form mt-5" data-aos="fade-up" data-aos-delay="200" id="scheduleForm"
                           onsubmit="return false;">
 
 
                         <div class="feature-1 d-md-flex">
                             <div class="align-self-center">
-
                                 <div class="form-group">
-                                    <label class="text-black" for="day">여행기간</label>
+                                    <label class="text-black" for="prompt">프롬프트</label>
                                     <div class="d-flex text-center align-items-center">
-                                        <input type="text" class="form-control" id="day">일
+                                        <textarea type="text" class="form-control" id="prompt"></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="text-black" for="destination">목적지</label>
-                                    <input type="text" class="form-control" id="destination">
+                                <div class="form-group d-md-flex justify-content-between">
+                                    <button type="button" id="speechBtn" class="btn btn-primary">
+                                        <i class="icon-microphone"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="aiBtn">AI 일정 생성</button>
                                 </div>
-                                <div class="form-group">
-                                    <label class="text-black" for="cost">예상경비</label>
-                                    <div class="d-flex text-center align-items-center">
-                                        <input type="text" class="form-control" id="cost" style="text-align: right">원
-                                    </div>
-                                </div>
-                                <!--                                <button type="button" class="btn btn-primary" id="addMst">일정 등록</button>-->
-
-
-                                <!--                                    <label for="hashtagInput"><span class="icon-tag text-primary"></span> 해시태그</label>-->
-                                <!--                                    <input type="text" name="hashtags" id="hashtagInput" class="form-control"-->
-                                <!--                                           th:value="${hashtags}">-->
-
                             </div>
                         </div>
 
@@ -83,7 +78,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="text-black" for="date">일자</label>
-                                    <input type="date" class="form-control" id="date">
+                                    <input type="date" class="form-control" id="date"
+                                           th:value="${#calendars.format(#calendars.createNow(),'yyyy-MM-dd')}">
                                 </div>
                                 <div class="row">
                                     <div class="col-6" style="padding-right: 2px">
@@ -101,7 +97,7 @@
                                 </div>
                                 <div class="form-group d-flex" style="gap: 15px;">
                                     <label class="d-flex align-items-center">
-                                        <input type="radio" name="color" value="#D6E9F0">
+                                        <input type="radio" name="color" value="#D6E9F0" checked>
                                         <span style="display: inline-block; width: 20px; height: 20px; background-color: #D6E9F0; border-radius: 50%;"></span>
                                     </label>
                                     <label class="d-flex align-items-center">

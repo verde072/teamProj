@@ -18,6 +18,7 @@ public class PostDTO {
     private String userId;                  // 작성자 ID
     private String title;                   // 제목
     private String content;                 // 내용
-    private String imgUrl;                  // 대표이미지 파일경로
+    private List<String> imgUrls;           // 이미지 리스트
+    private String imgUrl;                  // 대표이미지
     private List<String> hashtags;          // 해시태그 리스트
 }

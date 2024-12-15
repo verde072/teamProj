@@ -1,3 +1,46 @@
 .ck-editor__editable {
     min-height: 400px;
 }
+
+input[type='date'] {
+    width: 150px;
+}
+
+.tagify__input {
+    text-align: left !important;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagination a {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+.pagination a.active {
+    background-color: #6998AB;;
+    color: white;
+    font-weight: bold;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.write-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#submitBtn{
+    width: 70%;
+}
